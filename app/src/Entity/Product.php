@@ -38,6 +38,10 @@ class Product
      * @ORM\Column(name="title", type="string", length=255)
      */
     private string $title;
+    /**
+     * @ORM\Column(name="slug", type="string", length=255, unique=true)
+     */
+    private string $slug;
 
     /**
      * @ORM\Column(name="description", type="text", nullable=true)
@@ -100,6 +104,22 @@ class Product
     public function setTitle(string $title): void
     {
         $this->title = $title;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     */
+    public function setSlug(string $slug): void
+    {
+        $this->slug = $slug;
     }
 
     /**
