@@ -31,9 +31,10 @@ class Category
     private string $slug;
 
     /**
+     * @var Product[]
      * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="category", fetch="EAGER")
      */
-    private ArrayCollection $products;
+    private array|ArrayCollection $products;
 
     /**
      * Конструктор категории
@@ -137,5 +138,10 @@ class Category
                 $product->setCategory(null);
             }
         }
+    }
+
+    public function __toString(): string
+    {
+        return $this->getName();
     }
 }
