@@ -21,10 +21,11 @@ final class Version20211219182913 extends AbstractMigration
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('CREATE TABLE products (id INT AUTO_INCREMENT NOT NULL, category_id INT NOT NULL, '
+        $this->addSql('CREATE TABLE IF NOT EXISTS products (id INT AUTO_INCREMENT NOT NULL, category_id INT NOT NULL, '
             .'title VARCHAR(255) NOT NULL, description LONGTEXT DEFAULT NULL, price INT NOT NULL, '
+            .'slug VARCHAR(255) NOT NULL, '
             .'created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, '
-            .'INDEX IDX_B3BA5A5A12469DE2 (category_id), PRIMARY KEY(id)) '
+            .'INDEX IDX_B3BA5A5A12469DE2 (category_id), UNIQUE INDEX UNIQ_3AF34668989D9B62 (slug), PRIMARY KEY(id)) '
             .'DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE products ADD CONSTRAINT FK_B3BA5A5A12469DE2 FOREIGN KEY (category_id) REFERENCES categories (id)');
     }
