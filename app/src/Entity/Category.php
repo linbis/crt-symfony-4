@@ -34,7 +34,7 @@ class Category
      * @var Product[]
      * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="category", fetch="EAGER")
      */
-    private array|ArrayCollection $products;
+    private $products;
 
     /**
      * Конструктор категории

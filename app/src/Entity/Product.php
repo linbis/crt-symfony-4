@@ -6,6 +6,7 @@ use App\Traits\HasTimestampsTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Nullable;
 
 /**
  * @ORM\Table(name="products")
@@ -54,9 +55,10 @@ class Product
     private int $price;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Image")
+     * @var Image[]
+     * @ORM\ManyToMany(targetEntity="App\Entity\Image", cascade={"persist"})
      */
-    private ArrayCollection $images;
+    private $images;
 
     /**
      * Конструктор товара
@@ -194,6 +196,24 @@ class Product
     {
         if ($this->images->contains($image)) {
             $this->images->removeElement($image);
+        }
+    }
+
+    /**
+     * @return null
+     */
+    public function getMultipleImages(): mixed
+    {
+        return null;
+    }
+
+    public function setMultipleImages(array $imagesUploadedFiles): void
+    {
+        foreach ($imagesUploadedFiles as $uploadedFile) {
+            $i = new Image();
+            $i->setFilename($uploadedFile);
+
+            $this->addImage($i);
         }
     }
 }

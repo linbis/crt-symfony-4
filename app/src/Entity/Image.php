@@ -109,4 +109,9 @@ class Image
     {
         return $this->getFilename();
     }
+
+    public function __toString(): string
+    {
+        return '';
+    }
 }

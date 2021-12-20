@@ -9,12 +9,12 @@ trait HasTimestampsTrait
     /**
      * @ORM\Column(name="created_at", type="datetime")
      */
-    private \DateTime $createdAt;
+    private ?\DateTimeInterface $createdAt = null;
 
     /**
      * @ORM\Column(name="updated_at", type="datetime")
      */
-    private \DateTime $updatedAt;
+    private ?\DateTimeInterface $updatedAt = null;
 
     /**
      * @ORM\PrePersist
@@ -22,7 +22,7 @@ trait HasTimestampsTrait
      */
     public function updatedTimestamps(): void
     {
-        $dateTimeNow = new \DateTime('now');
+        $dateTimeNow = new \DateTime();
         $this->setUpdatedAt($dateTimeNow);
 
         if ($this->getCreatedAt() === null) {
@@ -40,7 +40,6 @@ trait HasTimestampsTrait
 
     /**
      * @param \DateTimeInterface $createdAt
-     * @return static
      */
     public function setCreatedAt(\DateTimeInterface $createdAt): void
     {
@@ -57,7 +56,6 @@ trait HasTimestampsTrait
 
     /**
      * @param \DateTimeInterface $updatedAt
-     * @return static
      */
     public function setUpdatedAt(\DateTimeInterface $updatedAt): void
     {
